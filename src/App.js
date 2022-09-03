@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import Pregunta from './components/Pregunta.jsx'
 import Formulario from './components/Formulario.jsx'
+import Listado from './components/Listado.jsx'
 
 function App() {
 
@@ -8,6 +9,14 @@ function App() {
   const [presupuesto,guardarPresupuesto] = useState(0);
   const [restante,guardarRestante] = useState(0);
   const [mostrarpregunta,actualizarPregunta ] = useState(true);
+  const [gastos, guardarGastos] = useState([]); //Sera un arreglo de objetos
+
+    const agregarNuevoGasto = gasto=>{
+        guardarGastos([
+          ...gastos,
+          gasto
+        ]);
+    }
 
 
   return (
@@ -15,7 +24,6 @@ function App() {
 
       <header>
         <h1>Gasto Semanal </h1>
-
 
         <div className='contenido-principal contenido'>
           { mostrarpregunta ? 
@@ -28,11 +36,17 @@ function App() {
           ) :  (
               <div className='row'>
                 <div className='one-half column'>
-                  <Formulario />
+                  <Formulario 
+                  
+                  agregarNuevoGasto={agregarNuevoGasto}
+                  />
                 </div>
 
                 <div className='one-half column'>
-                  2
+                  <Listado 
+                    gastos={gastos}
+                    
+                  />
                 </div>
               </div>
           ) }              
